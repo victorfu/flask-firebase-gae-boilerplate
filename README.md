@@ -1,4 +1,4 @@
-# nhi-gpt
+# Flask App Engine Starter
 
 ## Development
 
