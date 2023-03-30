@@ -5,6 +5,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import Flask, request, Response
+from flask_cors import cross_origin
 
 app = Flask(__name__)
 
@@ -25,7 +26,14 @@ def hello():
     return "hello"
 
 
+@app.route("/api/ping")
+@cross_origin(send_wildcard=True)
+def ping():
+    return "pong"
+
+
 @app.route("/api/sql001/", methods=["GET"])
+@cross_origin(send_wildcard=True)
 def proxy_sql001():
     target_url = sql001
     response = requests.get(target_url, params=request.args)
@@ -33,6 +41,7 @@ def proxy_sql001():
 
 
 @app.route("/api/sql100", methods=["POST"])
+@cross_origin(send_wildcard=True)
 def proxy_sql100():
     target_url = sql100
     response = requests.post(target_url, json=request.get_json())
@@ -40,6 +49,7 @@ def proxy_sql100():
 
 
 @app.route("/api/sql002", methods=["POST"])
+@cross_origin(send_wildcard=True)
 def proxy_sql002():
     target_url = sql002
     response = requests.post(target_url, json=request.get_json())
@@ -47,6 +57,7 @@ def proxy_sql002():
 
 
 @app.route("/api/sql300", methods=["POST"])
+@cross_origin(send_wildcard=True)
 def proxy_sql300():
     target_url = sql300
     response = requests.post(target_url, json=request.get_json())
